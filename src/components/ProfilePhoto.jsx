@@ -48,7 +48,6 @@ function ProfilePhoto({ setFoto, nickname }) {
         const resizedFile = await resizeImage(selectedFile, 800, 800);
         const fileNameExt = selectedFile.name.split(".")[1];
         const fileName = `${Date.now()}.${fileNameExt}`;
-
         try {
           const { data, error } = await supabase.storage
             .from("Photos")
