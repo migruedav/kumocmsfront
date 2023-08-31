@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Switch } from "@nextui-org/react";
-import { DatePicker, DatePickerValue } from "@tremor/react";
+import { DatePicker } from "@tremor/react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { supabase } from "../supabase";
 import { Select, SelectItem } from "@tremor/react";
@@ -37,7 +37,7 @@ function Calificar() {
     else if (calificacion < 7) totalStr = "Regular";
     else if (calificacion < 9) totalStr = "Bien";
     else if (calificacion < 10) totalStr = "Muy Bien";
-    else if (calificacion == 10) totalStr = "Excelente";
+    else if (calificacion === 10) totalStr = "Excelente";
     setTotalStr(totalStr);
   }, [calificacion]);
 
@@ -58,7 +58,7 @@ function Calificar() {
       }
     }
     fetchData();
-  }, []);
+  }, [formattedDate]);
 
   return (
     <div className="bg-black h-screen w-full flex justify-center items-center">
