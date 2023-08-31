@@ -1,9 +1,12 @@
+const {nextui} = require("@nextui-org/react");
+
 module.exports = {
   darkMode: "class",
 
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -101,6 +104,7 @@ module.exports = {
       },
     },
   },
+  
   safelist: [
     {
       pattern:
@@ -130,5 +134,6 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  plugins: [require("@headlessui/tailwindcss")],
+  plugins: [require("@headlessui/tailwindcss"),nextui()],
+  darkMode: "class",
 };
