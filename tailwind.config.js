@@ -163,4 +163,8 @@ module.exports = {
     }),
   ],
   darkMode: "class",
+  daisyui: {
+    themes:false,
+    darkTheme: "light", 
+  },
 };
