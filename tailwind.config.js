@@ -1,5 +1,24 @@
-const {nextui} = require("@nextui-org/react");
-
+const { nextui } = require("@nextui-org/react");
+const theme = {
+  light: {
+    colors: {
+      myred: "#FF0000",
+      mygray: "#C1C1C1",
+    },
+  },
+  dark: {
+    colors: {
+      myred: "#FF0000",
+      mygray: "#C1C1C1",
+    },
+  },
+  mytheme: {
+    colors: {
+      myred: "#FF0000",
+      mygray: "#C1C1C1",
+    },
+  },
+};
 module.exports = {
   darkMode: "class",
 
@@ -104,7 +123,7 @@ module.exports = {
       },
     },
   },
-  
+
   safelist: [
     {
       pattern:
@@ -134,6 +153,12 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  plugins: [require("@headlessui/tailwindcss"),nextui()],
+  plugins: [
+    require("@headlessui/tailwindcss"),
+    nextui({
+      theme,
+      addCommonColors: false,
+    }),
+  ],
   darkMode: "class",
 };

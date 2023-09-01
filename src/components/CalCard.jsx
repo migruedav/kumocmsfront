@@ -117,6 +117,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
         <div className="flex flex-row justify-between w-40 items-center h-6 gap-6 z-0">
           <p>Asistencia</p>
           <Switch
+            color="mygray"
             size="sm"
             isSelected={asistencia}
             onValueChange={setAsistencia}
@@ -146,7 +147,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
             max={10}
             step={1}
             onChange={(e) => setCalificacion(e.target.value)}
-            className="w-60 my-4"
+            className="w-60 h-6 my-4 appearance-none : rounded-full overflow-hidden bg-gray-300 thumb:green-500"
             value={calificacion}
           />
           <p className="w-full text-center">{totalStr}</p>
