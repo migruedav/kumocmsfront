@@ -1,4 +1,3 @@
-const { nextui } = require("@nextui-org/react");
 const theme = {
   light: {
     colors: {
@@ -155,12 +154,7 @@ module.exports = {
     },
   ],
   plugins: [
-    require("@headlessui/tailwindcss"),
     require("daisyui"),
-    nextui({
-      theme,
-      addCommonColors: false,
-    }),
   ],
   darkMode: "class",
   daisyui: {
