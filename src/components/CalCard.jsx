@@ -80,6 +80,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
       console.log(error);
     } else {
       setEstado("Enviado");
+      console.log(data);
     }
   }
 
