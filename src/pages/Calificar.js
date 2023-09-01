@@ -18,7 +18,7 @@ function Calificar() {
   }, []);
 
   return (
-    <div className="bg-black h-screen w-full flex items-center gap-6 overflow-auto px-5">
+    <div className="bg-black h-screen w-full flex flex-col items-center gap-6 overflow-auto p-5">
       {data.map((alumno) => (
         <CalCard
           key={alumno.id}

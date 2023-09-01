@@ -69,7 +69,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
         {
           alumno: Nickname,
           grupo: Grupo,
-          fecha: formattedDate,
+          fecha: date,
           calificacion: total,
           programa: programa,
           alumno_id: id,
