@@ -5,7 +5,7 @@ import { Select, SelectItem } from "@tremor/react";
 import { supabase } from "../supabase";
 import React, { useEffect } from "react";
 
-function CalCard() {
+function CalCard({ Nickname, Foto, id, Grupo }) {
   const [asistencia, setAsistencia] = React.useState(true);
   const [puntualidad, setPuntualidad] = React.useState(true);
   const [uniforme, setUniforme] = React.useState(true);
@@ -14,6 +14,7 @@ function CalCard() {
   const [date, setDate] = React.useState(new Date());
   const [totalStr, setTotalStr] = React.useState("");
   const [programa, setPrograma] = React.useState("Kobudo");
+  const [estado, setEstado] = React.useState("Enviar");
 
   useEffect(() => {
     let totalSum = 0;
@@ -37,7 +38,7 @@ function CalCard() {
     else if (calificacion < 7) totalStr = "Regular";
     else if (calificacion < 9) totalStr = "Bien";
     else if (calificacion < 10) totalStr = "Muy Bien";
-    else if (calificacion === 10) totalStr = "Excelente";
+    else if (calificacion < 11) totalStr = "Excelente";
     setTotalStr(totalStr);
   }, [calificacion]);
 
@@ -45,8 +46,8 @@ function CalCard() {
   const formattedDate = `${dt.getFullYear()}-${(dt.getMonth() + 1)
     .toString()
     .padStart(2, "0")}-${dt.getDate().toString().padStart(2, "0")}`;
-  
-    useEffect(() => {
+
+  useEffect(() => {
     async function fetchData() {
       const { data, error } = await supabase
         .from("Calendario")
@@ -61,16 +62,37 @@ function CalCard() {
     fetchData();
   }, [formattedDate]);
 
+  async function handleClick() {
+    const { data, error } = await supabase
+      .from("Calificaciones")
+      .insert([
+        {
+          alumno: Nickname,
+          grupo: Grupo,
+          fecha: formattedDate,
+          calificacion: total,
+          programa: programa,
+          alumno_id: id,
+        },
+      ])
+      .select();
+    if (error) {
+      console.log(error);
+    } else {
+      setEstado("Enviado");
+    }
+  }
+
   return (
     <div>
       <div className="bg-white w-[350px] rounded-2xl flex flex-col justify-center items-center gap-3 py-10">
         <div
-          className="h-40 w-40 bg-yellow-500 rounded-full bg-contain bg-center bg-no-repeat mb-4"
+          className="h-40 w-40 rounded-full bg-cover bg-center bg-no-repeat mb-4 border-5 border-gray-600"
           style={{
-            backgroundImage: `url("https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp")`,
+            backgroundImage: `url(${Foto})`,
           }}
         ></div>
-        <h1 className="text-2xl font-semibold">Mick</h1>
+        <h1 className="text-2xl font-semibold">{Nickname}</h1>
         <Select
           value={programa}
           className="w-60 z-50 flex"
@@ -129,8 +151,12 @@ function CalCard() {
           <p className="w-full text-center">{totalStr}</p>
         </div>
         <p className="w-full text-center text-2xl font-semibold ">{total}</p>
-        <button className="h-10 w-60 bg-black text-white rounded-2xl">
-          Enviar
+        <button
+          className={`h-10 w-60 ${estado==="Enviado"?"bg-gray-600":"bg-black"} text-white rounded-2xl `}
+          onClick={handleClick}
+          disabled={estado === "Enviado"}
+        >
+          {estado}
         </button>
         <AiFillPlusCircle
           size={30}
