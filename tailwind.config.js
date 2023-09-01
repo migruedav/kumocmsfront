@@ -26,6 +26,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    './node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     extend: {
@@ -155,6 +156,7 @@ module.exports = {
   ],
   plugins: [
     require("@headlessui/tailwindcss"),
+    require("daisyui"),
     nextui({
       theme,
       addCommonColors: false,

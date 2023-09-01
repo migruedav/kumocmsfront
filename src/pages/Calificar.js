@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { supabase } from "../supabase";
 import CalCard from "../components/CalCard";
 
+
 function Calificar() {
   const [data, setData] = React.useState([]);
 

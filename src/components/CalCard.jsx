@@ -1,7 +1,5 @@
-import { Switch } from "@nextui-org/react";
 import { DatePicker } from "@tremor/react";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { Select, SelectItem } from "@tremor/react";
 import { supabase } from "../supabase";
 import React, { useEffect } from "react";
 
@@ -94,18 +92,17 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           }}
         ></div>
         <h1 className="text-2xl font-semibold">{Nickname}</h1>
-        <Select
+        <select
+          className="select select-bordered w-60 max-w-xs text-center"
           value={programa}
-          className="w-60 z-50 flex"
-          onValueChange={(e) => setPrograma(e)}
+          onChange={(e) => setPrograma(e.target.value)}
         >
-          <SelectItem value="Kata" className="w-full text-center">
-            Kata
-          </SelectItem>
-          <SelectItem value="Kobudo">Kobudo</SelectItem>
-          <SelectItem value="Kumite">Kumite</SelectItem>
-          <SelectItem value="Antibullying">Antibullying</SelectItem>
-        </Select>
+          <option value="Kata">Kata</option>
+          <option value="Kobudo">Kobudo</option>
+          <option value="Kumite">Kumite</option>
+          <option value="Antibullying">Antibullying</option>
+        </select>
+
         <DatePicker
           className="w-60 mb-2 z-20"
           value={date}
@@ -116,45 +113,48 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
 
         <div className="flex flex-row justify-between w-40 items-center h-6 gap-6 z-0">
           <p>Asistencia</p>
-          <Switch
-            color="mygray"
-            size="sm"
-            isSelected={asistencia}
-            onValueChange={setAsistencia}
-          ></Switch>
+          <input
+            type="checkbox"
+            className="toggle base-content toggle-md"
+            checked={asistencia}
+            onChange={(e) => setAsistencia(e.target.checked)}
+          />
         </div>
         <div className="flex flex-row justify-between w-40 items-center h-6 gap-6">
           <p>Puntualidad</p>
-          <Switch
-            size="sm"
-            isSelected={puntualidad}
-            onValueChange={setPuntualidad}
-          ></Switch>
+          <input
+            type="checkbox"
+            className="toggle base-content toggle-md"
+            checked={puntualidad}
+            onChange={(e) => setPuntualidad(e.target.checked)}
+          />
         </div>
         <div className="flex flex-row justify-between w-40 items-center h-6  gap-6">
           <p>Uniforme</p>
-          <Switch
-            size="sm"
-            isSelected={uniforme}
-            onValueChange={setUniforme}
-          ></Switch>
+          <input
+            type="checkbox"
+            className="toggle base-content toggle-md"
+            checked={uniforme}
+            onChange={(e) => setUniforme(e.target.checked)}
+          />
         </div>
         <div className="flex flex-col justify-center items-center">
+          <p className="w-full text-center text-2xl font-semibold ">{total}</p>
+          <p className="w-full text-center">{totalStr}</p>
           <input
             type="range"
-            list="tickmarks"
             min={0}
-            max={10}
-            step={1}
-            onChange={(e) => setCalificacion(e.target.value)}
-            className="w-60 h-6 my-4 appearance-none : rounded-full overflow-hidden bg-gray-300 thumb:green-500"
+            max="10"
             value={calificacion}
+            onChange={(e) => setCalificacion(e.target.value)}
+            className="range w-60 my-6"
           />
-          <p className="w-full text-center">{totalStr}</p>
         </div>
-        <p className="w-full text-center text-2xl font-semibold ">{total}</p>
+
         <button
-          className={`h-10 w-60 ${estado==="Enviado"?"bg-gray-600":"bg-black"} text-white rounded-2xl `}
+          className={`h-10 w-60 ${
+            estado === "Enviado" ? "bg-gray-600" : "bg-black"
+          } text-white rounded-2xl `}
           onClick={handleClick}
           disabled={estado === "Enviado"}
         >
