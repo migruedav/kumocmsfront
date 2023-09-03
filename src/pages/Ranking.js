@@ -1,11 +1,13 @@
 import React from "react";
-import GroupsChips from "../components/GroupsChips";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { supabase } from "../supabase";
 import KoinLogo from "../components/KoinLogo"
+import GroupsChipsMulti from "../components/GroupsChipsMulti";
 
 function Ranking() {
-  const [active, setActive] = React.useState(5);
+  const [active5, setActive5] = React.useState(false);
+  const [active6, setActive6] = React.useState(false);
+  const [active7, setActive7] = React.useState(false);
   const [alumnos, setAlumnos] = React.useState([]);
   const [calendario, setCalendario] = React.useState([]);
 
@@ -15,21 +17,37 @@ function Ranking() {
   const day = String(today.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
 
+  const actives = useMemo(() => {
+    const arr = [];
+    if (active5) {
+      arr.push(5);
+    }
+    if (active6) {
+      arr.push(6);
+    }
+    if (active7) {
+      arr.push(7);
+    }
+    return arr;
+  }, [active5, active6, active7]);
+
+
+
   useEffect(() => {
     async function fetchAlumnos() {
       const { data, error } = await supabase
         .from("Alumnos")
         .select("*")
-        .filter("Grupo", "eq", active)
+        .in("Grupo", actives)
         .order("Koins", { ascending: false });
       if (error) {
         console.log(error);
       } else {
         setAlumnos(data);
+        }
       }
-    }
     fetchAlumnos();
-  }, [active]);
+  }, [actives]);
 
   useEffect(() => {
     async function fetchCalendario() {
@@ -48,7 +66,7 @@ function Ranking() {
 
   return (
     <div className="bg-black h-screen w-full flex flex-col items-center gap-6 overflow-auto pt-5 pb-20">
-      <GroupsChips setActive={setActive} active={active} />
+      <GroupsChipsMulti active5={active5} setActive5={setActive5} active6={active6} setActive6={setActive6} active7={active7} setActive7={setActive7}/>
       <div className="flex flex-col gap-4">
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
