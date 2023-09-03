@@ -77,10 +77,9 @@ function AgregarAlumno() {
       </div>
       <div className="mt-6 w-60">
         <Select placeholder="Grupo" onChange={(e) => setGrupo(e)}>
-          <SelectItem value="k5">Kumo 5pm</SelectItem>
-          <SelectItem value="k6">Kumo 6pm</SelectItem>
-          <SelectItem value="k7">Kumo 7pm</SelectItem>
-          <SelectItem value="ch5">Chimalistac 5pm</SelectItem>
+          <SelectItem value={5}>5pm</SelectItem>
+          <SelectItem value={6}>6pm</SelectItem>
+          <SelectItem value={7}>7pm</SelectItem>
         </Select>
       </div>
       <div className="mt-6 w-60">
