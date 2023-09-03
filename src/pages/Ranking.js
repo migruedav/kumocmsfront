@@ -47,7 +47,7 @@ function Ranking() {
   }, [formattedDate]);
 
   return (
-    <div className="bg-black h-screen w-full flex flex-col items-center gap-6 overflow-auto p-5">
+    <div className="bg-black h-screen w-full flex flex-col items-center gap-6 overflow-auto pt-5 pb-20">
       <GroupsChips setActive={setActive} active={active} />
       <div className="flex flex-col gap-4">
         {alumnos.map((alumno) => {

@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import AgregarAlumno from "./pages/AgregarAlumno";
 import Calificar from "./pages/Calificar";
 import Ranking from "./pages/Ranking";
+import NavBar from "./components/NavBar";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/ranking" element={<Ranking/>} />
           <Route path="/" element={<Calificar />} />
         </Routes>
+        <NavBar />
       </BrowserRouter>
   );
 }
