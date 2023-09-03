@@ -32,10 +32,6 @@ function Ranking() {
     fetchAlumnos();
   }, [active]);
 
-  console.log("alumnos", alumnos);
-  console.log("calendario", calendario);
-  console.log("puntos_restantes", puntos_restantes);
-
   useEffect(() => {
     async function fetchCalendario() {
       const { data, error } = await supabase
@@ -49,7 +45,7 @@ function Ranking() {
       }
     }
     fetchCalendario();
-  }, []);
+  }, [formattedDate]);
 
   return (
     <div className="bg-black h-screen w-full flex flex-col items-center gap-6 overflow-auto p-5">
