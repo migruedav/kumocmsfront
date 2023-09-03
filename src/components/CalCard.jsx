@@ -62,15 +62,13 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
 
   async function handleClick() {
     const { data, error } = await supabase
-      .from("Calificaciones")
+      .from("Koins")
       .insert([
         {
-          alumno: Nickname,
-          grupo: Grupo,
+          alumno: id,
           fecha: date,
-          calificacion: total,
+          koins: total,
           programa: programa,
-          alumno_id: id,
         },
       ])
       .select();
@@ -97,10 +95,10 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           value={programa}
           onChange={(e) => setPrograma(e.target.value)}
         >
-          <option value="Kata">Kata</option>
-          <option value="Kobudo">Kobudo</option>
-          <option value="Kumite">Kumite</option>
-          <option value="Antibullying">Antibullying</option>
+          <option value={1}>Kata</option>
+          <option value={2}>Kobudo</option>
+          <option value={3}>Kumite</option>
+          <option value={4}>Antibullying</option>
         </select>
 
         <DatePicker

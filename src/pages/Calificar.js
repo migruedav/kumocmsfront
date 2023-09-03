@@ -6,7 +6,7 @@ import GroupsChips from "../components/GroupsChips";
 
 function Calificar() {
   const [data, setData] = React.useState([]);
-  const [active, setActive] = React.useState("5k");
+  const [active, setActive] = React.useState(5);
 
   useEffect(() => {
     async function fetchData() {
