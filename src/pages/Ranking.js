@@ -70,7 +70,7 @@ function Ranking() {
       <div className="flex flex-col gap-4">
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
-          const danger_index = ((350 - score) / (calendario.length-9)).toFixed(0);
+          const danger_index = ((350 - score) / (calendario.length)).toFixed(0);
           const color =
             danger_index < 14
               ? "bg-green-600"
