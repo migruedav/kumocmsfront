@@ -41,7 +41,7 @@ function AgregarAlumno() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center w-full my-20">
+    <div className="flex flex-col justify-center items-center w-full mt-10 mb-40">
       <ProfilePhoto setFoto={setFoto} />
       <input
         placeholder="Nombre"
