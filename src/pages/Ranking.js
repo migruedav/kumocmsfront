@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useMemo } from "react";
 import { supabase } from "../supabase";
-import KoinLogo from "../components/KoinLogo"
+import KoinLogo from "../components/KoinLogo";
 import GroupsChipsMulti from "../components/GroupsChipsMulti";
 
 function Ranking() {
@@ -31,8 +31,6 @@ function Ranking() {
     return arr;
   }, [active5, active6, active7]);
 
-
-
   useEffect(() => {
     async function fetchAlumnos() {
       const { data, error } = await supabase
@@ -44,8 +42,8 @@ function Ranking() {
         console.log(error);
       } else {
         setAlumnos(data);
-        }
       }
+    }
     fetchAlumnos();
   }, [actives]);
 
@@ -66,11 +64,18 @@ function Ranking() {
 
   return (
     <div className="bg-black h-screen w-full flex flex-col items-center gap-6 overflow-auto pt-5 pb-20">
-      <GroupsChipsMulti active5={active5} setActive5={setActive5} active6={active6} setActive6={setActive6} active7={active7} setActive7={setActive7}/>
+      <GroupsChipsMulti
+        active5={active5}
+        setActive5={setActive5}
+        active6={active6}
+        setActive6={setActive6}
+        active7={active7}
+        setActive7={setActive7}
+      />
       <div className="flex flex-col gap-4">
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
-          const danger_index = ((350 - score) / (calendario.length)).toFixed(0);
+          const danger_index = ((350 - score) / calendario.length).toFixed(0);
           const color =
             danger_index < 14
               ? "bg-green-600"
@@ -97,8 +102,10 @@ function Ranking() {
               </div>
               <div className="flex flex-col justify-center items-center w-1/2 gap-1">
                 <div className="font-semibold">{alumno.Nickname}</div>
-                <div className="text-5xl font-semibold flex flex-row gap-2 justify-center items-center">{score}<KoinLogo className="w-10 h-10" fill="#1F2937"/></div>
-                
+                <div className="text-5xl font-semibold flex flex-row gap-2 justify-center items-center">
+                  {score}
+                  <KoinLogo className="w-10 h-10" fill="#1F2937" />
+                </div>
 
                 {/*<div className="bg-gray-800 w-full h-6  flex justify-center items-center text-white">DI : {danger_index}</div>*/}
               </div>

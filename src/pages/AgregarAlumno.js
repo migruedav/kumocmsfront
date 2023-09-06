@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfilePhoto from "../components/ProfilePhoto";
 import { Select, SelectItem } from "@tremor/react";
 import { DatePicker } from "@tremor/react";
@@ -15,29 +15,74 @@ function AgregarAlumno() {
   const [nivel, setNivel] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState(new Date(2023, 1, 1));
   const [foto, setFoto] = useState("");
+  const [nicknames, setNicknames] = useState([]);
+
+  async function getNicknames() {
+    const { data, error } = await supabase.from("Alumnos").select("Nickname");
+
+    if (error) {
+      console.log(error);
+    } else {
+      data.map((alumno) => {
+        setNicknames((nicknames) => [...nicknames, alumno.Nickname]);
+      });
+    }
+  }
+
+  useEffect(() => {
+    getNicknames();
+  }, []);
+
+  async function createUser() {
+    const { data, error } = await supabase.auth.signUp({
+      email: `${nickname.toLowerCase().replace(/\s+/g, "")}@kumokarate.com`,
+      password: `${nickname.toLowerCase().replace(/\s+/g, "")}1234`,
+    });
+    if (error) {
+      console.log(error);
+    }
+    console.log(data);
+  }
+
+  async function confirmUser(email) {
+    const user = await supabase.auth.getUserByEmail(email);
+
+    await supabase.auth.updateUser({
+      id: user.id,
+      confirmed: true,
+    });
+  }
 
   async function handleSubmit(e) {
     setIsLoading(true);
     e.preventDefault();
-    const { data, error } = await supabase.from("Alumnos").insert([
-      {
-        Foto: `https://nkbchoashjdmtmocitad.supabase.co/storage/v1/object/public/Photos/${foto}`,
-        Nombre: nombre,
-        PrimerApellido: primerApellido,
-        SegundoApellido: segundoApellido,
-        Nickname: nickname,
-        Grupo: grupo,
-        Nivel: nivel,
-        FechaNacimiento: fechaNacimiento,
-      },
-    ]);
-    if (error) {
-      console.log(error);
+    if (nicknames.includes(nickname)) {
+      alert("Nickname ya existe");
     } else {
-      console.log(data);
-      window.location.reload();
+      const { data, error } = await supabase.from("Alumnos").insert([
+        {
+          Foto: `https://nkbchoashjdmtmocitad.supabase.co/storage/v1/object/public/Photos/${foto}`,
+          Nombre: nombre,
+          PrimerApellido: primerApellido,
+          SegundoApellido: segundoApellido,
+          Nickname: nickname,
+          Grupo: grupo,
+          Nivel: nivel,
+          FechaNacimiento: fechaNacimiento,
+          Email: `${nickname.toLowerCase().replace(/\s+/g, "")}@kumokarate.com`,
+        },
+      ]);
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(data);
+        createUser();
+        {
+          window.location.reload();
+        }
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (
@@ -66,7 +111,9 @@ function AgregarAlumno() {
         placeholder="Nickname"
         type="text"
         className="border border-gray-200 w-60 h-8 rounded-lg text-center"
-        onChange={(e) => setNickname(e.target.value)}
+        onChange={(e) => {
+          setNickname(e.target.value);
+        }}
       />
       <div className="w-60 mt-6">
         <DatePicker
