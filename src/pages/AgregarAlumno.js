@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProfilePhoto from "../components/ProfilePhoto";
 import { Select, SelectItem } from "@tremor/react";
 import { DatePicker } from "@tremor/react";
@@ -17,22 +17,6 @@ function AgregarAlumno() {
   const [foto, setFoto] = useState("");
   const [nicknames, setNicknames] = useState([]);
 
-  async function getNicknames() {
-    const { data, error } = await supabase.from("Alumnos").select("Nickname");
-
-    if (error) {
-      console.log(error);
-    } else {
-      data.map((alumno) => {
-        setNicknames((nicknames) => [...nicknames, alumno.Nickname]);
-      });
-    }
-  }
-
-  useEffect(() => {
-    getNicknames();
-  }, []);
-
   async function createUser() {
     const { data, error } = await supabase.auth.signUp({
       email: `${nickname.toLowerCase().replace(/\s+/g, "")}@kumokarate.com`,
@@ -42,15 +26,6 @@ function AgregarAlumno() {
       console.log(error);
     }
     console.log(data);
-  }
-
-  async function confirmUser(email) {
-    const user = await supabase.auth.getUserByEmail(email);
-
-    await supabase.auth.updateUser({
-      id: user.id,
-      confirmed: true,
-    });
   }
 
   async function handleSubmit(e) {

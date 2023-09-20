@@ -80,6 +80,26 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
     }
   }
 
+
+  async function twenty() {
+    if (total >= 20) {
+      const { data, error } = await supabase
+        .from("Diamonds")
+        .insert([
+          {
+            diamonds: 100,
+            alumno: id,
+          },
+        ])
+        .select();
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Se aumentaron 100 diamonds");
+      }
+    }
+  }
+
   return (
     <div>
       <div className="bg-white w-[350px] rounded-2xl flex flex-col justify-center items-center gap-3 py-10">
@@ -153,7 +173,10 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           className={`h-10 w-60 ${
             estado === "Enviado" ? "bg-gray-600" : "bg-black"
           } text-white rounded-2xl `}
-          onClick={handleClick}
+          onClick={() => {
+            twenty();
+            handleClick();
+          }}
           disabled={estado === "Enviado"}
         >
           {estado}
