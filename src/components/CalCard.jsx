@@ -116,8 +116,8 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           onChange={(e) => setPrograma(e.target.value)}
         >
           <option value={1}>Kata</option>
-          <option value={2}>Kobudo</option>
-          <option value={3}>Kumite</option>
+          <option value={2}>Kumite</option>
+          <option value={3}>Kobudo</option>
           <option value={4}>Antibullying</option>
         </select>
 
