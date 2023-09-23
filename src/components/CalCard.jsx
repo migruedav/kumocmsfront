@@ -69,8 +69,8 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           fecha: date,
           koins: total,
           programa: programa,
-          puntualidad: puntualidad,
           uniforme: uniforme,
+          puntualidad: puntualidad,
         },
       ])
       .select();
