@@ -91,6 +91,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           {
             diamonds: 100,
             alumno: id,
+            motivo: "Clase Perfecta",
           },
         ])
         .select();
