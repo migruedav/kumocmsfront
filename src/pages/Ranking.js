@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useMemo } from "react";
 import { supabase } from "../supabase";
-import KoinLogo from "../components/KoinLogo";
 import GroupsChipsMulti from "../components/GroupsChipsMulti";
 
 function Ranking() {
@@ -73,9 +72,10 @@ function Ranking() {
         setActive7={setActive7}
       />
       <div className="flex flex-col gap-4">
+        <div className="w-full text-center text-white">Faltan {calendario.length} clases para terminar el periodo</div>
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
-          const danger_index = ((350 - score) / calendario.length).toFixed(0);
+          const danger_index = ((360 - score) / calendario.length).toFixed(0);
           const color =
             danger_index < 14
               ? "bg-green-600"
@@ -101,13 +101,13 @@ function Ranking() {
                 ></div>
               </div>
               <div className="flex flex-col justify-center items-center w-1/2 gap-1">
-                <div className="font-semibold">{alumno.Nickname}</div>
+                <div className="font-bold text-2xl">{alumno.Nickname}</div>
                 <div className="text-5xl font-semibold flex flex-row gap-2 justify-center items-center">
+                  <img className="w-8 rounded-full" src="https://res.cloudinary.com/dt9ivv2ug/image/upload/v1693943730/Captura_de_Pantalla_2023-09-05_a_la_s_13.55.09_fwx4dh.png" alt="Koins" />
                   {score}
-                  <KoinLogo className="w-10 h-10" fill="#1F2937" />
                 </div>
+                  Danger Index : {danger_index}
 
-                {/*<div className="bg-gray-800 w-full h-6  flex justify-center items-center text-white">DI : {danger_index}</div>*/}
               </div>
             </div>
           );
