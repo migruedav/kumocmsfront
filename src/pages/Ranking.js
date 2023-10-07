@@ -75,7 +75,7 @@ function Ranking() {
         <div className="w-full text-center text-white">Faltan {calendario.length} clases para terminar el periodo</div>
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
-          const danger_index = ((360 - score) / calendario.length).toFixed(0);
+          const danger_index = ((360 - score) / calendario.length).toFixed(1);
           const color =
             danger_index < 14
               ? "bg-green-600"
