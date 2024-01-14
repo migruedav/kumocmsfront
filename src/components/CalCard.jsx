@@ -54,7 +54,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
       if (error) {
         console.log(error);
       } else {
-        data[0] ? setPrograma(data[0].programa) : setPrograma("Kata");
+        data[0] ? setPrograma(data[0].programa) : setPrograma(1);
       }
     }
     fetchData();
