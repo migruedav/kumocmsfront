@@ -72,10 +72,10 @@ function Ranking() {
         setActive7={setActive7}
       />
       <div className="flex flex-col gap-4">
-        <div className="w-full text-center text-white">Faltan {calendario.length} clases para terminar el periodo</div>
+        <div className="w-full text-center text-white">Faltan {calendario.length-1} clases para terminar el periodo</div>
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
-          const danger_index = ((360 - score) / calendario.length).toFixed(1);
+          const danger_index = ((360 - (score+20)) / (calendario.length-1)).toFixed(1);
           const color =
             danger_index < 14
               ? "bg-green-600"
@@ -104,7 +104,7 @@ function Ranking() {
                 <div className="font-bold text-2xl">{alumno.Nickname}</div>
                 <div className="text-5xl font-semibold flex flex-row gap-2 justify-center items-center">
                   <img className="w-8 rounded-full" src="https://res.cloudinary.com/dt9ivv2ug/image/upload/v1693943730/Captura_de_Pantalla_2023-09-05_a_la_s_13.55.09_fwx4dh.png" alt="Koins" />
-                  {score}
+                  {score+20}
                 </div>
                   Danger Index : {danger_index}
 
