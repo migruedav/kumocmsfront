@@ -10,7 +10,7 @@ function Calificar() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data, error } = await supabase.from("Alumnos").select("*").filter("Grupo", "eq", active).order("Nickname", { ascending: true });
+      const { data, error } = await supabase.from("Alumnos").select("*").eq('Activo',true).filter("Grupo", "eq", active).order("Nickname", { ascending: true });
       if (error) {
         console.log(error);
       } else {

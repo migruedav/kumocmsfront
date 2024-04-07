@@ -72,10 +72,10 @@ function Ranking() {
         setActive7={setActive7}
       />
       <div className="flex flex-col gap-4">
-        <div className="w-full text-center text-white">Faltan {calendario.length-1} clases para terminar el periodo</div>
+        <div className="w-full text-center text-white">Faltan {calendario.length} clases para terminar el periodo</div>
         {alumnos.map((alumno) => {
           const score = alumno.Koins;
-          const danger_index = ((360 - (score+20)) / (calendario.length-1)).toFixed(1);
+          const danger_index = ((360 - (score+20)) / (calendario.length)).toFixed(1);
           const color =
             danger_index < 14
               ? "bg-green-600"
