@@ -104,7 +104,7 @@ function Ranking() {
                 <div className="font-bold text-2xl">{alumno.Nickname}</div>
                 <div className="text-5xl font-semibold flex flex-row gap-2 justify-center items-center">
                   <img className="w-8 rounded-full" src="https://res.cloudinary.com/dt9ivv2ug/image/upload/v1693943730/Captura_de_Pantalla_2023-09-05_a_la_s_13.55.09_fwx4dh.png" alt="Koins" />
-                  {score+20}
+                  {score}
                 </div>
                   Danger Index : {danger_index}
 
