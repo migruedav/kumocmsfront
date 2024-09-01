@@ -173,9 +173,8 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
         </div>
 
         <button
-          className={`h-10 w-60 ${
-            estado === "Enviado" ? "bg-gray-600" : "bg-black"
-          } text-white rounded-2xl `}
+          className={`h-10 w-60 ${estado === "Enviado" ? "bg-gray-600" : "bg-black"
+            } text-white rounded-2xl `}
           onClick={() => {
             twenty();
             handleClick();

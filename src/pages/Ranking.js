@@ -35,6 +35,7 @@ function Ranking() {
       const { data, error } = await supabase
         .from("Alumnos")
         .select("*")
+        .eq('Activo',true)
         .in("Grupo", actives)
         .order("Koins", { ascending: false });
       if (error) {
