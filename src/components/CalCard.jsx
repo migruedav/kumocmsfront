@@ -1,17 +1,16 @@
+import moment from 'moment-timezone';
 import { DatePicker } from "@tremor/react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { supabase } from "../supabase";
 import React, { useEffect } from "react";
 
-function CalCard({ Nickname, Foto, id, Grupo }) {
+function CalCard({ Nickname, Foto, id, Grupo, programa }) {
   const [asistencia, setAsistencia] = React.useState(true);
   const [puntualidad, setPuntualidad] = React.useState(true);
   const [uniforme, setUniforme] = React.useState(true);
   const [calificacion, setCalificacion] = React.useState("5");
   const [total, setTotal] = React.useState(0);
-  const [date, setDate] = React.useState(new Date());
-  const [totalStr, setTotalStr] = React.useState("");
-  const [programa, setPrograma] = React.useState("Kobudo");
+  const [date, setDate] = React.useState(moment.tz('America/Mexico_City').toDate()); const [totalStr, setTotalStr] = React.useState("");
   const [estado, setEstado] = React.useState("Enviar");
 
   useEffect(() => {
@@ -40,38 +39,28 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
     setTotalStr(totalStr);
   }, [calificacion]);
 
-  const dt = new Date(2023, 7, 31);
-  const formattedDate = `${dt.getFullYear()}-${(dt.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${dt.getDate().toString().padStart(2, "0")}`;
+  
 
   useEffect(() => {
-    async function fetchData() {
-      const { data, error } = await supabase
-        .from("Calendario")
-        .select("*")
-        .eq("fecha", formattedDate);
-      if (error) {
-        console.log(error);
-      } else {
-        data[0] ? setPrograma(data[0].programa) : setPrograma(1);
-      }
+    if (asistencia === false) {
+      setPuntualidad(false);
+      setUniforme(false);
+      setCalificacion(0);
     }
-    fetchData();
-  }, [formattedDate]);
+  }, [asistencia]);
 
   async function handleClick() {
     const { data, error } = await supabase
       .from("Koins")
       .insert([
-        {
-          alumno: id,
-          fecha: date,
-          koins: total,
-          programa: programa,
-          uniforme: uniforme,
-          puntualidad: puntualidad,
-        },
+      {
+        alumno: id,
+        fecha: moment(date).tz('America/Mexico_City').format(),
+        koins: total,
+        programa: programa,
+        uniforme: uniforme,
+        puntualidad: puntualidad,
+      },
       ])
       .select();
     if (error) {
@@ -113,16 +102,7 @@ function CalCard({ Nickname, Foto, id, Grupo }) {
           }}
         ></div>
         <h1 className="text-2xl font-semibold">{Nickname}</h1>
-        <select
-          className="select select-bordered w-60 max-w-xs text-center"
-          value={programa}
-          onChange={(e) => setPrograma(e.target.value)}
-        >
-          <option value={1}>Kata</option>
-          <option value={2}>Kumite</option>
-          <option value={3}>Kobudo</option>
-          <option value={4}>Antibullying</option>
-        </select>
+
 
         <DatePicker
           className="w-60 mb-2 z-20"
