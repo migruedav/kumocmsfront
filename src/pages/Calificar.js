@@ -6,7 +6,7 @@ import GroupsChips from "../components/GroupsChips";
 function Calificar() {
   const [data, setData] = React.useState([]);
   const [active, setActive] = React.useState(5);
-  const [programa, setPrograma] = React.useState("Kobudo");
+  const [programa, setPrograma] = React.useState(1);
   const [showUpButton, setShowUpButton] = useState(false);
   const containerRef = useRef(null);
 
@@ -46,6 +46,9 @@ function Calificar() {
       containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  console.log(programa)
+
 
   return (
     <div
